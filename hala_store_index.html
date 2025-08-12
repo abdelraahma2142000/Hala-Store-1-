@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hala Store — متجر ملابس حريمي</title>
+<style>
+  :root{
+    --bg:#fff5f8;
+    --accent:#d81b60;
+    --accent-dark:#b2164a;
+    --muted:#666;
+    --card:#ffffff;
+    --radius:14px;
+    --gold:#d4a373;
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:#222;line-height:1.4}
+  header{background:linear-gradient(90deg,var(--accent),var(--accent-dark));color:#fff;padding:20px 12px;box-shadow:0 4px 18px rgba(0,0,0,0.08)}
+  .wrap{max-width:1100px;margin:18px auto;padding:0 12px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand h1{margin:0;font-size:22px;letter-spacing:0.6px}
+  nav{margin-top:8px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .navlink{color:rgba(255,255,255,0.9);text-decoration:none;padding:6px 10px;border-radius:8px;font-weight:600}
+  .navlink:hover{background:rgba(255,255,255,0.06)}
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .search{padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;width:280px}
+  main{padding:12px 0}
+  .hero{display:flex;gap:16px;align-items:center;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,0.06),transparent);border-radius:12px}
+  .hero .left{flex:1}
+  .hero h2{margin:0 0 8px;font-size:26px;color:#fff}
+  .hero p{margin:0;color:rgba(255,255,255,0.9)}
+  .hero .cta{margin-top:12px}
+  .btn{background:var(--gold);color:#fff;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:18px}
+  .card{background:var(--card);border-radius:var(--radius);padding:14px;box-shadow:0 8px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:12px;min-height:320px}
+  .swatch{height:180px;border-radius:10px;display:flex;align-items:flex-end;padding:10px;color:#fff;font-weight:700;font-size:16px}
+  .price{color:var(--accent);font-weight:800;font-size:18px}
+  .muted{color:var(--muted);font-size:13px}
+  .row{display:flex;gap:8px;align-items:center}
+  footer{padding:24px;text-align:center;color:var(--muted);margin-top:28px}
+  /* cart */
+  .cart-btn{position:fixed;left:18px;bottom:18px;background:var(--accent);color:#fff;padding:12px 14px;border-radius:999px;border:none;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,0.18)}
+  .cart-panel{position:fixed;left:18px;bottom:78px;background:#fff;padding:12px;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,0.12);width:320px;max-height:70vh;overflow:auto;display:none}
+  .cart-panel h3{margin:0 0 8px;color:var(--accent)}
+  .small{font-size:13px}
+  /* responsive */
+  @media (max-width:700px){
+    .topbar{flex-direction:column;align-items:flex-start}
+    .search{width:100%}
+    .card{min-height:260px}
+    .cart-panel{width:92%;left:4%}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap topbar">
+    <div class="brand">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" style="background:#fff;border-radius:8px;padding:6px">
+        <rect width="24" height="24" rx="6" fill="#fff"/>
+        <path d="M4 7c2-3 14-3 16 0v10c-2 3-14 3-16 0V7z" fill="#d81b60"/>
+      </svg>
+      <div>
+        <h1>Hala Store</h1>
+        <div class="muted small">متجر ملابس حريمي — مصر</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;align-items:center">
+      <input id="search" class="search" placeholder="ابحثي عن منتج أو لون..." aria-label="بحث">
+      <nav>
+        <a class="navlink" href="#">الرئيسية</a>
+        <a class="navlink" href="#">المنتجات</a>
+        <a class="navlink" href="#">تواصل</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero" style="margin-top:12px">
+    <div class="left">
+      <h2>أحدث تشكيلة صيف 2025</h2>
+      <p>أزياء راقية، ألوان أنثوية مريحة، وتفاصيل مدروسة. اكتشفي تشكيلتنا المختارة بعناية.</p>
+      <div class="cta"><button class="btn" onclick="scrollToProducts()">تسوقي الآن</button></div>
+    </div>
+    <div class="right" style="width:320px;text-align:left;color:#fff">
+      <div style="background:linear-gradient(180deg,rgba(255,255,255,0.06),transparent);padding:12px;border-radius:10px">
+        <div style="font-weight:700">عرض خاص</div>
+        <div class="muted small">خصم 10% على أول طلب</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:18px">
+    <h3>منتجات مميزة</h3>
+    <div id="products" class="grid"></div>
+  </section>
+</main>
+
+<button class="cart-btn" id="cartBtn" title="السلة">🛒 <span id="cartCount">0</span></button>
+
+<div class="cart-panel" id="cartPanel" aria-hidden="true">
+  <h3>سلة المشتريات</h3>
+  <div id="cartList"></div>
+  <p class="muted small">الإجمالي: <strong id="cartTotal">0</strong> جنيه</p>
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button class="btn" onclick="checkout()">اطلب الآن</button>
+    <button class="btn" style="background:var(--accent-dark)" onclick="closeCart()">إغلاق</button>
+  </div>
+</div>
+
+<footer class="wrap">
+  © <span id="year"></span> Hala Store — تصميم مشابه للتجربة
+</footer>
+
+<script>
+// Products with color swatches instead of images
+const PRODUCTS = [
+  {id:1, title:"فستان وردي ناعم", desc:"قماش شيفون مريح", price:520, color:"linear-gradient(180deg,#ff9fc3,#ff6fa3)"},
+  {id:2, title:"طقم بيج كلاسيك", desc:"تفصيل أنيق", price:760, color:"linear-gradient(180deg,#f7e7d0,#e9caa7)"},
+  {id:3, title:"بلوزة كشمير", desc:"خامة فاخرة", price:420, color:"linear-gradient(180deg,#f6e6ff,#dab6ff)"},
+  {id:4, title:"جينز قصّة مريحة", desc:"مناسبة للنهار", price:340, color:"linear-gradient(180deg,#cfe6ff,#89b7ff)"},
+  {id:5, title:"عباية كلاسيك", desc:"تصميم أنيق", price:980, color:"linear-gradient(180deg,#eee7e1,#d4a373)"},
+  {id:6, title:"تنورة وردية", desc:"خامة خفيفة ومريحة", price:260, color:"linear-gradient(180deg,#ffd6e8,#ffb6d3)"}
+];
+
+let cart = [];
+
+// render products
+const productsEl = document.getElementById('products');
+function renderProducts(list=PRODUCTS){
+  productsEl.innerHTML='';
+  list.forEach(p=>{
+    const el = document.createElement('div');
+    el.className='card';
+    el.innerHTML = `
+      <div class="swatch" style="background:${p.color}">${p.title}</div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h4 style="margin:8px 0 6px">${p.title}</h4>
+          <div class="muted small">${p.desc}</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+          <div class="price">${p.price} جنيه</div>
+          <div style="display:flex;gap:8px">
+            <button class="btn" onclick="addToCart(${p.id})">أضف للسلة</button>
+          </div>
+        </div>
+      </div>`;
+    productsEl.appendChild(el);
+  });
+}
+
+// search
+document.getElementById('search').addEventListener('input', e=>{
+  const q = e.target.value.trim().toLowerCase();
+  if(!q) return renderProducts();
+  renderProducts(PRODUCTS.filter(p=> (p.title + ' ' + p.desc).toLowerCase().includes(q)));
+});
+
+// cart functions
+function addToCart(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  cart.push({...p});
+  updateCartUI();
+  alert('تم إضافة المنتج للسلة');
+}
+
+function updateCartUI(){
+  document.getElementById('cartCount').textContent = cart.length;
+  const list = document.getElementById('cartList');
+  list.innerHTML='';
+  if(cart.length===0){ list.innerHTML='<div class="muted small">السلة فارغة</div>'; document.getElementById('cartTotal').textContent='0'; return; }
+  let total=0;
+  cart.forEach((it,idx)=>{
+    const row = document.createElement('div');
+    row.style.display='flex'; row.style.justifyContent='space-between'; row.style.alignItems='center'; row.style.margin='8px 0';
+    row.innerHTML = `<div><strong>${it.title}</strong><div class="muted small">${it.price} جنيه</div></div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button onclick="removeFromCart(${idx})" style="background:#eee;border:none;padding:6px;border-radius:8px;cursor:pointer">حذف</button>
+      </div>`;
+    list.appendChild(row);
+    total += it.price;
+  });
+  document.getElementById('cartTotal').textContent = total;
+}
+
+// cart panel toggles
+document.getElementById('cartBtn').addEventListener('click', ()=>{
+  const panel = document.getElementById('cartPanel');
+  panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+  panel.setAttribute('aria-hidden', panel.style.display !== 'block');
+});
+
+function closeCart(){ document.getElementById('cartPanel').style.display='none'; }
+function removeFromCart(i){ cart.splice(i,1); updateCartUI(); }
+
+function checkout(){
+  if(cart.length===0){ alert('السلة فارغة'); return; }
+  const name = prompt('اكتبي اسم العميل:');
+  if(!name) return;
+  const total = cart.reduce((s,it)=>s+it.price,0);
+  alert(`تم تسجيل طلب ${name} — الإجمالي ${total} جنيه\n(هذا نموذج تجريبي — ربط الدفع يحتاج باك-أند)`);
+  cart = []; updateCartUI(); closeCart();
+}
+
+function scrollToProducts(){ window.scrollTo({top: document.getElementById('products').offsetTop - 20, behavior:'smooth'}); }
+
+// init
+document.getElementById('year').textContent = new Date().getFullYear();
+renderProducts();
+</script>
+
+</body>
+</html>
